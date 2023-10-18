@@ -17,7 +17,7 @@ window_height = 314*2
 interface.geometry(f"{window_width}x{window_height}")
 
 # Tải và thay đổi kích thước ảnh nền
-background_image = Image.open("bg.png")  # Thay "background.png" bằng đường dẫn tới hình nền của bạn
+background_image = Image.open("resource\\bg.png")  # Thay "background.png" bằng đường dẫn tới hình nền của bạn
 background_image = background_image.resize((window_width, window_height), Image.LANCZOS)
 background_photo = ImageTk.PhotoImage(background_image)
 
@@ -35,7 +35,7 @@ def open_csv_file():
     current_directory = os.path.dirname(os.path.abspath("C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System"))
 
     # Đường dẫn tới tệp CSV trong cùng thư mục với tệp mã nguồn
-    csv_file_path = os.path.join(current_directory, "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\Attendance.cvs")
+    csv_file_path = os.path.join(current_directory, "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\Attendance.cvs")
     
     # Đọc dữ liệu từ tệp CSV (điều này giả sử rằng tệp CSV chứa dữ liệu cột và hàng)
     if os.path.exists(csv_file_path):

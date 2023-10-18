@@ -5,7 +5,7 @@ import os
 from datetime import datetime
 from playsound import playsound
 
-path = 'resourcesAttendance'
+path = 'img'
 images = []
 classNames = []
 myList = os.listdir(path)
@@ -26,7 +26,7 @@ def findEncodings(images):
     return encodeList
 
 def markAttendance(name):
-    with open('Attendance.cvs', 'r+') as f:
+    with open('resource\\Attendance.cvs', 'r+') as f:
         myDataList = f.readlines()
         nameList = []
         for line in myDataList:
@@ -67,7 +67,7 @@ while True:
         else:
             name = 'Unknown'
             print(name)
-            playsound('C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\coi.mp3')
+            playsound('C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\coi.mp3')
             y1, x2, y2, x1 = faceLoc
             y1, x2, y2, x1 = y1*4, x2*4, y2*4, x1*4
             cv2.rectangle(img, (x1, y1), (x2, y2), (0, 0, 255), 2)

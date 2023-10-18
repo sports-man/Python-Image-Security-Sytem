@@ -1,8 +1,8 @@
 import cv2
 import face_recognition
 
-elonMusk = cv2.imread("resources/elon musk.jpg")
-testImg = cv2.imread("resources/bill gates.jpg")
+elonMusk = cv2.imread("imgTest/elon musk.jpg")
+testImg = cv2.imread("imgTest/bill gates.jpg")
 
 # (top, right, bottom, left)
 faceLoc = face_recognition.face_locations(elonMusk)[0]
