@@ -9,9 +9,6 @@ import shutil
 import winsound
 import subprocess
 
-freq = 100
-reg = 1000
-
 path = 'img'
 images = []
 classNames = []
@@ -75,7 +72,6 @@ while True:
         matches = face_recognition.compare_faces(encodeListKnown, encodeFace)
         faceDis = face_recognition.face_distance(encodeListKnown, encodeFace)
         matchIndex = np.argmin(faceDis)
-        print(faceDis)
         if faceDis[matchIndex]< 0.55:
             name = classNames[matchIndex].upper()
             y1,x2,y2,x1 = faceLoc
