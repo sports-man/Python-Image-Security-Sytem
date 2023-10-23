@@ -5,7 +5,7 @@ from PIL import Image, ImageTk
 import pandas as pd
 import cv2
 import os
-
+import subprocess
 # Tạo cửa sổ giao diện
 interface = tk.Tk()
 interface.title("Security System")
@@ -32,10 +32,10 @@ background_label.place(relwidth=1, relheight=1)
 
 def open_csv_file():
     # Lấy đường dẫn tới thư mục dự án Python hiện tại
-    current_directory = os.path.dirname(os.path.abspath("C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System"))
+    current_directory = os.path.dirname(os.path.abspath("C:\\Users\\Dell Vostro\\PycharmProjects\\project\\Security-System"))
 
     # Đường dẫn tới tệp CSV trong cùng thư mục với tệp mã nguồn
-    csv_file_path = os.path.join(current_directory, "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\Attendance.cvs")
+    csv_file_path = os.path.join(current_directory, "C:\\Users\\Dell Vostro\\PycharmProjects\\project\\Security-System\\resource\\Attendance.cvs")
     
     # Đọc dữ liệu từ tệp CSV (điều này giả sử rằng tệp CSV chứa dữ liệu cột và hàng)
     if os.path.exists(csv_file_path):
@@ -47,6 +47,10 @@ def open_csv_file():
         text.insert("1.0", df.to_string(index=False))
         text.pack()
 
+def run_other_program():
+    interface.destroy()
+    subprocess.run(['python', 'Attendance.py'])
+
 
 # Tạo văn bản 
 text = tk.Label(interface, text="Attendance", font=("Inter", 18), bg = "#000019", fg = "white", cursor="hand2")
@@ -54,7 +58,8 @@ text.place(x = 735, y = 34)
 text.bind("<Button-1>", lambda event: open_csv_file()) 
 
 # Tạo văn bản 
-text2 = tk.Label(interface, text="START", font=("Inter", 21), bg = "white", fg = "black", cursor="hand2").place(x = 172, y = 421)
-
+text2 = tk.Label(interface, text="START", font=("Inter", 21), bg = "white", fg = "black", cursor="hand2" )
+text2.place(x = 172, y = 421)
+text2.bind("<Button-1>",lambda event: run_other_program())
 # Chạy vòng lặp chính của ứng dụng
 interface.mainloop()
