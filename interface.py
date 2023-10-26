@@ -2,64 +2,68 @@ import tkinter as tk
 from tkinter import *
 from tkinter import filedialog
 from PIL import Image, ImageTk
+import openpyxl
 import pandas as pd
-import cv2
-import os
+from customtkinter import CTkSegmentedButton
+import csv
 import subprocess
-# Tạo cửa sổ giao diện
-interface = tk.Tk()
-interface.title("Security System")
+import os
 
-
-# Lấy kích thước cửa sổ
-window_width = 512*2
-window_height = 314*2
-interface.geometry(f"{window_width}x{window_height}")
-
-# Tải và thay đổi kích thước ảnh nền
-background_image = Image.open("resource\\bg.png")  # Thay "background.png" bằng đường dẫn tới hình nền của bạn
-background_image = background_image.resize((window_width, window_height), Image.LANCZOS)
-background_photo = ImageTk.PhotoImage(background_image)
-
-# Đặt ảnh làm nền
-background_label = tk.Label(interface, image=background_photo)
-background_label.place(relwidth=1, relheight=1)
-
-# # Hàm để mở cửa sổ thông tin
-# def show_info_window():
-#     interface2.interface2()
-#     interface.withdraw()
-
-def open_csv_file():
-    # Lấy đường dẫn tới thư mục dự án Python hiện tại
-    current_directory = os.path.dirname(os.path.abspath("C:\\Users\\Dell Vostro\\PycharmProjects\\project\\Security-System"))
-
-    # Đường dẫn tới tệp CSV trong cùng thư mục với tệp mã nguồn
-    csv_file_path = os.path.join(current_directory, "C:\\Users\\Dell Vostro\\PycharmProjects\\project\\Security-System\\resource\\Attendance.cvs")
-    
-    # Đọc dữ liệu từ tệp CSV (điều này giả sử rằng tệp CSV chứa dữ liệu cột và hàng)
-    if os.path.exists(csv_file_path):
-        df = pd.read_csv(csv_file_path)
-        
-        # Tạo cửa sổ hoặc hộp thoại để hiển thị dữ liệu
-        top = tk.Toplevel()
-        text = tk.Text(top)
-        text.insert("1.0", df.to_string(index=False))
-        text.pack()
-
-def run_other_program():
-    interface.destroy()
+def start_clicked():
+    app.destroy()
     subprocess.run(['python', 'Attendance.py'])
 
+def clicked1():   
+    folder_path = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\Unknown"  
+    os.system(f'explorer {folder_path}')
+
+def clicked2():
+    folder_path = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\attendance.xlsx"  
+    os.system(f'start excel "{folder_path}"')
+
+def clicked3():
+    folder_path = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\img"  
+    os.system(f'explorer {folder_path}')
+
+
+# Tạo cửa sổ giao diện
+app = tk.Tk()
+app.title("Security System App")
+app.geometry("1024x628")
+app.resizable(False, False)
+
+# Màn hình main
+main_frame = tk.Frame(app, width=1024, height=628)
+main_frame.pack()
+
+# Mở hình ảnh bằng PIL và chuyển nó thành đối tượng PhotoImage
+image = Image.open("resource\\bg.png")  
+image = image.resize((1024, 628), Image.LANCZOS)
+background_photo = ImageTk.PhotoImage(image)
+
+# Tạo một Label widget để hiển thị hình ảnh:
+background_label = tk.Label(main_frame, image=background_photo)
+background_label.place(x=0, y=0, relwidth=1, relheight=1)
 
 # Tạo văn bản 
-text = tk.Label(interface, text="Attendance", font=("Inter", 18), bg = "#000019", fg = "white", cursor="hand2")
-text.place(x = 735, y = 34)
-text.bind("<Button-1>", lambda event: open_csv_file()) 
+text = tk.Label(main_frame, text="Home", font=("Inter", 18), bg = "#02262c", fg = "white", cursor="hand2")
+text.place(x = 512, y = 34)
+text.bind("<Button-1>", lambda event: clicked3()) 
 
 # Tạo văn bản 
-text2 = tk.Label(interface, text="START", font=("Inter", 21), bg = "white", fg = "black", cursor="hand2" )
+text = tk.Label(main_frame, text="Unknown", font=("Inter", 18), bg = "#000f12", fg = "white", cursor="hand2")
+text.place(x = 630, y = 34)
+text.bind("<Button-1>", lambda event: clicked1()) 
+
+# Tạo văn bản 
+text = tk.Label(main_frame, text="Attendance", font=("Inter", 18), bg = "#000019", fg = "white", cursor="hand2")
+text.place(x = 781, y = 34)
+text.bind("<Button-1>", lambda event: clicked2()) 
+
+# Tạo văn bản 
+text2 = tk.Label(main_frame, text="START", font=("Inter", 21), bg = "white", fg = "black", cursor="hand2")
 text2.place(x = 172, y = 421)
-text2.bind("<Button-1>",lambda event: run_other_program())
+text2.bind("<Button-1>", lambda event: start_clicked()) 
+
 # Chạy vòng lặp chính của ứng dụng
-interface.mainloop()
+app.mainloop()
