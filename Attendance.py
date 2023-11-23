@@ -15,12 +15,14 @@ classNames = []
 myList = os.listdir(path)
 print(myList)
 
+#  hàm lưu ảnh từ img vào mảng images
 for i in myList:
     curImg = cv2.imread(f'{path}/{i}')
     images.append(curImg)
     classNames.append(os.path.splitext(i)[0])
 print(classNames)
 
+# hàm mã hóa từng khuôn mặt và lưu vào mảng encodeList
 def findEncodings(images):
     encodeList = []
     for img in images:
@@ -29,6 +31,7 @@ def findEncodings(images):
         encodeList.append(encode)
     return encodeList
 
+# hàm mỗi khi có người nhận diện sẽ lưu lại thời gian người đó xuất hiện
 def markAttendance(name):
     with open('resource\\Attendance.csv', 'r+') as f:
         myDataList = f.readlines()
@@ -40,7 +43,7 @@ def markAttendance(name):
             now = datetime.now()
             dtString = now.strftime("%Y-%m-%d %H:%M:%S")
             f.writelines(f'\n{name}, {dtString}')
-
+# hàm mỗi khi có người chưa nhận diện được sẽ lưu lại thời gian người đó xuất hiện
 def markAttendanceUnknown(name):
     with open('resource\\Attendance.csv', 'r+') as f:
         myDataList = f.readlines()
@@ -55,6 +58,7 @@ def markAttendanceUnknown(name):
 encodeListKnown = findEncodings(images)
 print(len(encodeListKnown)) 
 
+# mở camera
 cap = cv2.VideoCapture(0)
 cap.set(3, 640)
 cap.set(4, 480)
@@ -70,14 +74,18 @@ while True:
     imgS = cv2.resize(img, (0, 0), None, 0.25, 0.25)
     imgS = cv2.cvtColor(imgS, cv2.COLOR_BGR2RGB)
 
+    # xác định 4 điểm tạo ra khung hcn trên khuôn mặt
     facesCurFrame = face_recognition.face_locations(imgS)
+    # mã hóa các điểm trên khuôn mặt đang nhận diện
     encodesCurFrame = face_recognition.face_encodings(imgS, facesCurFrame)
 
+    # so sánh với data chủ nhà có sẵn
     for encodeFace, faceLoc in zip(encodesCurFrame, facesCurFrame):
         matches = face_recognition.compare_faces(encodeListKnown, encodeFace)
         faceDis = face_recognition.face_distance(encodeListKnown, encodeFace)
         matchIndex = np.argmin(faceDis)
 
+        # xác suất nhỏ hơn 0.55 hiện ra khung hcn xanh và tên rồi đánh dấu thời gian xuất hiện vào file
         if faceDis[matchIndex] < 0.55:
             name = classNames[matchIndex].title()
             y1,x2,y2,x1 = faceLoc
@@ -86,6 +94,7 @@ while True:
             cv2.rectangle(img,(x1,y2-35),(x2,y2),(0,255,0),cv2.FILLED)
             cv2.putText(img,name,(x1+6,y2-6),cv2.FONT_HERSHEY_COMPLEX,1,(255,255,255),2)
             markAttendance(name)
+        # phát âm thanh, set name = UNKNOWN, khung hcn đỏ, chụp màn hình lưu vào imgSave
         else: 
             check=1
             name = 'Unknown'
