@@ -14,15 +14,15 @@ def start_clicked():
     subprocess.run(['python', 'Attendance.py'])
 
 def clicked1():   
-    folder_path = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\imgSave"  
+    folder_path = "C:\\Users\\Dell Vostro\\PycharmProjects\\project\\Security-System\\resource\\imgSave"  
     os.system(f'explorer {folder_path}')
 
 def clicked2():
-    folder_path = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\attendance.xlsx"  
+    folder_path = "C:\\Users\\Dell Vostro\\PycharmProjects\\project\\Security-System\\resource\\attendance.xlsx"  
     os.system(f'start excel "{folder_path}"')
 
 def clicked3():
-    folder_path = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\img"  
+    folder_path = "C:\\Users\\Dell Vostro\\PycharmProjects\\project\\Security-System\\img"  
     os.system(f'explorer {folder_path}')
 
 

@@ -9,6 +9,9 @@ import shutil
 import pandas as pd
 from openpyxl import Workbook
 
+import winsound
+import time
+
 path = 'img'
 images = []
 classNames = []
@@ -68,6 +71,15 @@ nameTmp = ""
 
 imgBg = cv2.imread('resource/bg2.png')
 
+
+
+def play_beep():
+    # Thực hiện âm thanh bíp với tần số 1000Hz trong 1000ms (1 giây)
+    winsound.Beep(600, 150)
+
+
+
+
 while True:
     success, img = cap.read()
 
@@ -99,7 +111,9 @@ while True:
             check=1
             name = 'Unknown'
             nameTmp = name
-            playsound('C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\coi.mp3')
+
+            # Gọi hàm để phát âm thanh bíp
+            play_beep()
             y1,x2,y2,x1 = faceLoc
             y1, x2, y2, x1 = y1*4,x2*4,y2*4,x1*4
             cv2.rectangle(img,(x1,y1),(x2,y2),(0,0,255),2)
@@ -113,11 +127,11 @@ while True:
     cv2.imshow('Security System', imgBg)
 
     # Đọc nội dung từ file CSV
-    csv_file = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\Attendance.csv" 
+    csv_file = "C:\\Users\\Dell Vostro\\PycharmProjects\\project\\Security-System\\resource\\Attendance.csv" 
     data = pd.read_csv(csv_file)
 
     # Tạo một tệp Excel và sao chép nội dung vào đó
-    excel_file = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\attendance.xlsx"  
+    excel_file = "C:\\Users\\Dell Vostro\\PycharmProjects\\project\\Security-System\\resource\\attendance.xlsx"  
     data.to_excel(excel_file, index=False)
     
     if(key==113):
@@ -129,6 +143,7 @@ folder_path = "resource\\Unknown"
 # Đếm số lượng tệp ảnh trong thư mục
 image_count = sum(1 for file in os.listdir(folder_path) if file.lower().endswith((".jpg", ".jpeg", ".png", ".gif")))
 if check==1:  
+    
     markAttendanceUnknown(nameTmp)
     image = cv2.imread("resource\\imgSave\\captured_image.jpg")
 
@@ -152,6 +167,8 @@ if check==1:
     folder_path = "resource\\Unknown"
     new_filename = f"Unknown{image_count+1}.jpg"
     destination_path = os.path.join(folder_path, new_filename)
+
+    
     # Di chuyển hoặc sao chép tệp ảnh vào thư mục
     shutil.copy(image_path, destination_path)  # Để sao chép
 
