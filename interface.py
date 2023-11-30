@@ -14,7 +14,7 @@ def start_clicked():
     subprocess.run(['python', 'Attendance.py'])
 
 def clicked1():   
-    folder_path = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\Unknown"  
+    folder_path = "C:\\Users\\MSI GF63\\OneDrive - ptit.edu.vn\\CODE\\Security System\\resource\\imgSave"  
     os.system(f'explorer {folder_path}')
 
 def clicked2():
