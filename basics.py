@@ -10,6 +10,7 @@ import winsound
 import subprocess
 
 path = 'img'
+# path to the images
 images = []
 classNames = []
 myList = os.listdir(path)
