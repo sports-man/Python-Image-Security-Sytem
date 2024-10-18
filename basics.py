@@ -22,6 +22,12 @@ for i in myList:
     classNames.append(os.path.splitext(i)[0])
 print(classNames)
 
+for i in myList:
+    curImg = cv2.imread(f'{path}/{i}')
+    images.append(curImg)
+    classNames.append(os.path.splitext(i)[0])
+print(classNames)
+
 def findEncodings(images):
     encodeList = []
     for img in images:
