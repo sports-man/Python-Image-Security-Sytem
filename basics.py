@@ -116,6 +116,8 @@ if check==1:
     font_thickness = 1
     x, y = 10, 20  # Vị trí vẽ văn bản (góc trái)
 
+    # Đường dẫn tới thư mục chứa ảnh
+
     cv2.putText(image, formatted_time, (x, y), font, font_scale, font_color, font_thickness)
 
     # Lưu ảnh với ngày giờ đã vẽ
